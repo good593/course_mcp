@@ -3,6 +3,22 @@ from fastmcp.server.dependencies import get_context
 
 mcp = FastMCP("Course — Prompts only")
 
+@mcp.prompt
+def get_prompt() -> str:
+    return ("당신은 친절한 초등학교 선생님입니다.\n"
+"사용자의 요청에 맞게 적절한 답변을 해주세요.")
+
+@mcp.tool 
+async def get_teacher_prompt() -> str:
+    """
+    사용 예시: get_teacher_prompt()를 사용해서 LLM 설명해줘.
+    => 결과: 초등학교 선생님 말투로 LLM 설명하는 결과를 얻을 수 있음
+    """
+    ctx = get_context()
+    response = await ctx.fastmcp.render_prompt("get_prompt")
+    return "\n".join(
+        msg.content.text for msg in response.messages if msg.content.type == "text"
+    )
 
 @mcp.prompt
 async def explain_term_with_glossary(term: str) -> str:
