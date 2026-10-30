@@ -157,5 +157,65 @@ paginate: true
 ---
 ![alt text](./img/image-22.png)
 
+---
+# [예제 - VSCode](https://code.visualstudio.com/docs/agent-customization/mcp-servers)
 
+---
+## 1. MCP 서버 등록
+> `.mcp.json` 파일을 이용하면 프로젝트 단위로 MCP 서버를 등록하고 GitHub Copilot Agent에서 사용할 수 있습니다.
+```
+Ctrl + Shift + P → MCP: Open Workspace Folder MCP Configuration
+```
+![alt text](./img/image-23.png)
+
+---
+- MCP 서버 설정 예시
+```json
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest"
+      ]
+    }
+  }
+}
+```
+
+---
+- 등록한 MCP 서버 실행 예시 
+```
+my-project/
+├── .git/
+├── .mcp.json           # MCP 서버 설정
+├── src/
+│   └── main.py
+└── README.md
+```
+![alt text](./img/image-25.png)
+
+---
+## 2. MCP 서버 확인
+> 등록된 playwright 서버가 목록에 나타나는지 확인합니다.
+```
+Ctrl + Shift + P → MCP: List Servers
+```
+![alt text](./img/image-24.png)
+
+> 조회 결과 확인 
+
+![alt text](./img/image-26.png)
+
+---
+## [3. VS Code에서 실행하기](https://code.visualstudio.com/docs/agents/reference/mcp-configuration) 
+
+| 항목 | `.mcp.json` | `.vscode/mcp.json` |
+|---|---|---|
+| 위치 | 프로젝트 루트 | `.vscode` 폴더 |
+| 최상위 키 | `mcpServers` | `servers` |
+| GitHub Copilot | 직접 읽음 | VS Code가 전달 |
+| 팀 공유 | 가능 | 가능 |
+| 권장 용도 | Copilot 중심 설정 | VS Code 전용 기능 활용 |
 
