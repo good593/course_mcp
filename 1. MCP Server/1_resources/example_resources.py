@@ -4,9 +4,10 @@ import json
 
 from fastmcp import FastMCP
 
+# MCP Server 객체 생성
 mcp = FastMCP("Course — Resources only")
 
-
+# MCP Server에 resource 등록
 @mcp.resource("course://syllabus")
 def get_syllabus() -> str:
     """이 모듈에서 다루는 MCP 서버 구성 요소 요약."""
@@ -19,7 +20,7 @@ def get_syllabus() -> str:
         "sdk": "FastMCP",
     }, ensure_ascii=False, indent=2)
 
-
+# MCP Server에 resource 등록
 @mcp.resource("course://glossary/{term}")
 def get_glossary_entry(term: str) -> str:
     """간단한 용어 설명(데모). 실제로는 DB·파일에서 조회할 수 있다."""
@@ -33,4 +34,5 @@ def get_glossary_entry(term: str) -> str:
 
 
 if __name__ == "__main__":
+    # MCP Server 실행
     mcp.run()
